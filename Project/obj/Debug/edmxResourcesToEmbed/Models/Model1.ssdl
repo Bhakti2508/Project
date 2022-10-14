@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbMVCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Table">
+    <Key>
+      <PropertyRef Name="C_Id" />
+    </Key>
+    <Property Name="C_Id" Type="int" Nullable="false" />
+    <Property Name="C_Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Table1">
+    <Key>
+      <PropertyRef Name="P_Id" />
+    </Key>
+    <Property Name="P_Id" Type="int" Nullable="false" />
+    <Property Name="P_Name" Type="varchar" MaxLength="50" />
+    <Property Name="C_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Table1_Table">
+    <End Role="Table" Type="Self.Table" Multiplicity="1" />
+    <End Role="Table1" Type="Self.Table1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Table">
+        <PropertyRef Name="C_Id" />
+      </Principal>
+      <Dependent Role="Table1">
+        <PropertyRef Name="C_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbMVCModelStoreContainer">
+    <EntitySet Name="Table" EntityType="Self.Table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Table1" EntityType="Self.Table1" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Table1_Table" Association="Self.FK_Table1_Table">
+      <End Role="Table" EntitySet="Table" />
+      <End Role="Table1" EntitySet="Table1" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
